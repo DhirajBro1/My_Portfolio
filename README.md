@@ -214,4 +214,4 @@ MIT License - Open for personal and commercial use
 
 ---
 
-Built with ❤️ by Dhiraj Kumar Pandit
+Built with  by Dhiraj Kumar Pandit
