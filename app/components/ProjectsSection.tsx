@@ -13,7 +13,7 @@ const projects = [
     tech: ['React Expo',  'Plant org', 'Android'],
     downloadLink: '/api/apk',
     isAPK: true,
-    githubLink: 'https://github.com/',
+    githubLink: 'https://github.com/DhirajBro1/AgriFarm',
   },
   {
     id: 2,
@@ -24,23 +24,11 @@ const projects = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4l1-12z" />
       </svg>
     ),
-    tech: ['Next.js', 'MongoDB', 'Stripe', 'Tailwind CSS'],
-    liveLink: 'https://example.com',
-    githubLink: 'https://github.com/'
+    tech: ['HTML', 'CSS', 'JS', 'PHP','MySQL'],
+    liveLink: 'https://gopalringcenter.wuaze.com',
+    githubLink: 'https://github.com/DhirajBro1/ecommerce'
   },
-  {
-    id: 3,
-    title: 'Task Management App',
-    description: 'A collaborative task management tool with real-time updates and team features.',
-    icon: (
-      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-      </svg>
-    ),
-    tech: ['React', 'Firebase', 'Redux', 'Material UI'],
-    liveLink: 'https://example.com',
-    githubLink: 'https://github.com/'
-  },
+
   {
     id: 4,
     title: 'Weather Dashboard',
@@ -50,35 +38,23 @@ const projects = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
       </svg>
     ),
-    tech: ['Vue.js', 'OpenWeather API', 'Chart.js', 'Tailwind CSS'],
-    liveLink: 'https://example.com',
-    githubLink: 'https://github.com/'
+    tech: ['HTML', 'OpenWeather API', 'CSS', 'JS'],
+    liveLink: 'https://dhirajbro1.github.io/Weather_program/',
+    githubLink: 'https://github.com/DhirajBro1/Weather_program'
   },
-  {
-    id: 5,
-    title: 'Social Media Platform',
-    description: 'A social networking platform with user profiles, posts, and real-time messaging.',
-    icon: (
-      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.856-1.487M15 7a4 4 0 11-8 0 4 4 0 018 0zM6 17a6 6 0 1112 0v2H6v-2z" />
-      </svg>
-    ),
-    tech: ['Node.js', 'Express', 'MongoDB', 'Socket.io'],
-    liveLink: 'https://example.com',
-    githubLink: 'https://github.com/'
-  },
+
   {
     id: 6,
-    title: 'Analytics Dashboard',
-    description: 'An advanced analytics dashboard with data visualization and real-time metrics.',
+    title: 'Climate Change Impact Analysis – Nepal',
+    description: 'Collected and integrated multi-source environmental datasets including river discharge, flood data, land cover, and climate data. Built predictive models to analyze environmental impact patterns with comprehensive EDA.',
     icon: (
       <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
       </svg>
     ),
-    tech: ['React', 'D3.js', 'Python', 'PostgreSQL'],
-    liveLink: 'https://example.com',
-    githubLink: 'https://github.com/'
+    tech: ['Pandas', 'NumPy', 'Matplotlib', 'Linear Regression', 'Data Cleaning', 'EDA'],
+    liveLink: 'https://dhiraj.streamlit.app',
+    githubLink: 'https://github.com/Omdena-NIC-Nepal/capstone-project-DhirajBro1'
   },
 ];
 
@@ -121,6 +97,36 @@ export default function ProjectsSection() {
                       {tech}
                     </span>
                   ))}
+                </div>
+
+                {/* Live Link and GitHub Link Buttons */}
+                <div className="flex gap-3">
+                  {project.liveLink && (
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 font-semibold text-sm flex items-center justify-center gap-2 hover:-translate-y-1 transform"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                      </svg>
+                      Live Demo
+                    </a>
+                  )}
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 px-4 py-2.5 bg-gradient-to-r from-gray-700 to-gray-800 dark:from-gray-600 dark:to-gray-700 text-white rounded-lg hover:shadow-lg hover:shadow-gray-500/50 transition-all duration-300 font-semibold text-sm flex items-center justify-center gap-2 hover:-translate-y-1 transform"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3   .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                      </svg>
+                      GitHub
+                    </a>
+                  )}
                 </div>
 
                 {/* APK Download Button */}
