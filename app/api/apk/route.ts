@@ -9,7 +9,7 @@ if (!uri) {
 }
 
 export async function POST(req: NextRequest) {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(uri!);
 
   try {
     await client.connect();
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const client = new MongoClient(uri);
+  const client = new MongoClient(uri!);
 
   try {
     await client.connect();
