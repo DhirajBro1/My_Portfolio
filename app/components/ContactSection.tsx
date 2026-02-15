@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { trackContactForm, trackRatingSubmit } from '@/lib/analytics';
 
 interface Comment {
   _id: string;
@@ -56,6 +57,12 @@ export default function ContactSection() {
       });
 
       if (!res.ok) throw new Error('Failed to send message');
+
+      // Track analytics events
+      trackContactForm(formData.name, formData.email);
+      if (formData.rating > 0) {
+        trackRatingSubmit(formData.rating, formData.name);
+      }
 
       setStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' });
       setFormData({ name: '', email: '', subject: '', message: '', rating: 0 });

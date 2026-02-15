@@ -1,4 +1,5 @@
 import React from 'react';
+import { trackSkillInteraction } from '@/lib/analytics';
 
 const skillsData = [
   {
@@ -54,8 +55,9 @@ export default function SkillsSection() {
                 {skillGroup.skills.map((skill, skillIdx) => (
                   <div
                     key={skill.name}
-                    className="animate-fadeInUp p-3 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800/50 hover:border-blue-400 dark:hover:border-blue-600 transition-colors duration-300"
+                    className="animate-fadeInUp p-3 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800/50 hover:border-blue-400 dark:hover:border-blue-600 transition-colors duration-300 cursor-pointer"
                     style={{ animationDelay: `${groupIdx * 100 + skillIdx * 50}ms` }}
+                    onClick={() => trackSkillInteraction(skill.name)}
                   >
                     <div className="flex justify-between items-center gap-3">
                       <div className="flex items-center gap-2 flex-1">
