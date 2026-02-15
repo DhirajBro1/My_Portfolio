@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 import clientPromise from '../../../lib/mongodb';
 
 export async function GET() {
@@ -43,6 +44,31 @@ export async function POST(req: Request) {
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : String(err);
     console.error('POST /api/comments error:', errorMsg, err);
+    return NextResponse.json({ error: errorMsg }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const id = url.searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'Missing id parameter' }, { status: 400 });
+    }
+
+    const client = await clientPromise;
+    const db = client.db(process.env.MONGODB_DB ?? 'portfolio');
+    const result = await db.collection('comments').deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      return NextResponse.json({ error: 'Comment not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, deletedId: id });
+  } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    console.error('DELETE /api/comments error:', errorMsg, err);
     return NextResponse.json({ error: errorMsg }, { status: 500 });
   }
 }

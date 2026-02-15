@@ -11,7 +11,7 @@ interface Comment {
 }
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', rating: 0 });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -51,14 +51,14 @@ export default function ContactSection() {
         body: JSON.stringify({
           name: formData.name,
           comment: `Email: ${formData.email}\nSubject: ${formData.subject}\n\n${formData.message}`,
-          rating: null,
+          rating: formData.rating > 0 ? formData.rating : null,
         }),
       });
 
       if (!res.ok) throw new Error('Failed to send message');
 
       setStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '', rating: 0 });
       await fetchComments();
     } catch (error) {
       setStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
@@ -160,6 +160,34 @@ export default function ContactSection() {
                 className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300 hover:border-blue-400"
                 placeholder="What is this about?"
               />
+            </div>
+
+            <div className="animate-fadeInUp" style={{ animationDelay: '475ms' }}>
+              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">Rate My Portfolio (Optional)</label>
+              <div className="flex items-center gap-3">
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setFormData(prev => ({ ...prev, rating: star }))}
+                      className={`text-3xl transition-all duration-200 transform hover:scale-125 ${
+                        star <= formData.rating
+                          ? 'text-yellow-400 drop-shadow-lg'
+                          : 'text-gray-300 dark:text-gray-600 hover:text-yellow-300'
+                      }`}
+                      title={`Rate ${star} star${star !== 1 ? 's' : ''}`}
+                    >
+                      ★
+                    </button>
+                  ))}
+                </div>
+                {formData.rating > 0 && (
+                  <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                    {formData.rating} star{formData.rating !== 1 ? 's' : ''}
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="animate-fadeInUp" style={{ animationDelay: '500ms' }}>
