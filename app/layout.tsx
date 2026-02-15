@@ -23,14 +23,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: [
-      {
-        url: "/Dhiraj.jpeg",
-        sizes: "any",
-        type: "image/jpeg",
-      },
-    ],
-    apple: "/Dhiraj.jpeg",
+    icon: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 
@@ -43,8 +37,6 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta name="theme-color" content="#2563eb" />
-        <link rel="icon" href="/Dhiraj.jpeg" type="image/jpeg" sizes="any" />
-        <link rel="apple-touch-icon" href="/Dhiraj.jpeg" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
