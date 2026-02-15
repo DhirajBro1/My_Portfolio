@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dhiraj | Full-Stack Developer & Web Designer",
+  title: "Dhiraj | Full-Stack Developer",
   description: "Professional portfolio showcasing projects, skills, and expertise in web development. Let's build something amazing together.",
   keywords: "web development, full-stack developer, React, Next.js, Node.js, portfolio",
   authors: [{ name: "Dhiraj" }],
@@ -21,6 +21,16 @@ export const metadata: Metadata = {
     title: "Dhiraj | Full-Stack Developer",
     description: "Check out my latest projects and professional work",
     type: "website",
+  },
+  icons: {
+    icon: [
+      {
+        url: "/Dhiraj.jpeg",
+        sizes: "any",
+        type: "image/jpeg",
+      },
+    ],
+    apple: "/Dhiraj.jpeg",
   },
 };
 
@@ -33,7 +43,8 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <meta name="theme-color" content="#2563eb" />
-        <link rel="icon" href="/Dhiraj.jpeg" />
+        <link rel="icon" href="/Dhiraj.jpeg" type="image/jpeg" sizes="any" />
+        <link rel="apple-touch-icon" href="/Dhiraj.jpeg" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}

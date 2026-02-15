@@ -28,7 +28,7 @@ export default function AboutSection() {
           {/* Right - Content */}
           <div className="space-y-6 animate-fadeInRight" style={{ animationDelay: '200ms' }}>
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              I'm D.K Pandit, a 17 year old passionate full-stack developer with a deep love for creating beautiful, functional web applications. With expertise in modern technologies like React, Next.js, and Node.js, I transform ideas into reality.
+              I'm D.K Pandit, a 17 year old passionate full-stack vibe coder with a deep love for creating beautiful, functional web applications. With expertise in modern technologies like React, Next.js, and Node.js, I transform ideas into reality.
             </p>
 
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
