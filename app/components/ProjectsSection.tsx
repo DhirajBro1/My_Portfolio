@@ -29,7 +29,7 @@ const projects = [
     ),
     tech: ['HTML', 'CSS', 'JS', 'PHP','MySQL'],
     liveLink: 'https://gopalringcenter.wuaze.com',
-    githubLink: 'https://github.com/DhirajBro1/ecommerce'
+    githubLink: 'https://github.com/DhirajBro1/Gopal_Ring_Center'
   },
 
   {
