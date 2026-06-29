@@ -28,7 +28,7 @@ const projects = [
       </svg>
     ),
     tech: ['HTML', 'CSS', 'JS', 'PHP','MySQL'],
-    liveLink: 'https://gopalringcenter.wuaze.com',
+    liveLink: 'https://gopalringcenter.com.np',
     githubLink: 'https://github.com/DhirajBro1/ecommerce'
   },
 
