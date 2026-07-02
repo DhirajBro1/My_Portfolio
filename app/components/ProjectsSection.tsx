@@ -14,8 +14,9 @@ const projects = [
       </svg>
     ),
     tech: ['React Expo',  'Plant org', 'Android'],
-    downloadLink: '/api/apk',
+    downloadLink: '/api/apk?file=AgriFarm.apk',
     isAPK: true,
+    apkFilename: 'AgriFarm.apk',
     githubLink: 'https://github.com/DhirajBro1/AgriFarm',
   },
   {
@@ -58,6 +59,21 @@ const projects = [
     tech: ['Pandas', 'NumPy', 'Matplotlib', 'Linear Regression', 'Data Cleaning', 'EDA'],
     liveLink: 'https://dhiraj.streamlit.app',
     githubLink: 'https://github.com/Omdena-NIC-Nepal/capstone-project-DhirajBro1'
+  },
+  {
+    id: 7,
+    title: 'Ledger MS',
+    description: 'A digital ledger for bussinesses to maintain their accountability without any disturbance ',
+    icon: (
+      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6H4a1 1 0 00-1 1v13a1 1 0 001 1h8m0-16h8a1 1 0 011 1v13a1 1 0 01-1 1h-8m0-15v15M7 10h2M7 14h2M14 12l2 2 4-4" />
+  </svg>
+    ),
+    tech: ['React Expo',  'Mongo DB', 'JWT','bcrypt hashing', 'Android'],
+    downloadLink: '/api/apk?file=Ledger_MS.apk',
+    isAPK: true,
+    apkFilename: 'Ledger_MS.apk',
+    githubLink: 'https://github.com/DhirajBro1/Ledger-MS',
   },
 ];
 
@@ -136,7 +152,7 @@ export default function ProjectsSection() {
                 {project.isAPK && (
                   <a
                     href={project.downloadLink}
-                    download="AgriFarm.apk"
+                    download={project.apkFilename}
                     onClick={() => trackAPKDownload(project.title)}
                     className="w-full px-4 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:shadow-lg hover:shadow-green-500/50 transition-all duration-300 font-semibold text-sm flex items-center justify-center gap-2 hover:-translate-y-1 transform"
                   >
