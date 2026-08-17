@@ -63,7 +63,7 @@ export default function AdminPanel() {
       localStorage.setItem('adminAuth', 'true');
       setIsAuthenticated(true);
       setPassword('');
-    } catch (err) {
+    } catch {
       setPasswordError('Authentication failed');
     }
   };

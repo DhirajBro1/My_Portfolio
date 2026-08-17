@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   const navLinks = [
     { href: '#home', label: 'Home' },
@@ -14,66 +15,105 @@ export default function Header() {
     { href: '#contact', label: 'Contact' },
   ];
 
-  return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700/50 shadow-sm hover:shadow-md transition-shadow duration-300">
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity duration-300">
-            DHIRAJ KUMAR PANDIT
-          </Link>
+  useEffect(() => {
+    const updateActiveSection = () => {
+      const currentHash = window.location.hash.replace('#', '') || 'home';
+      setActiveSection(currentHash);
+    };
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-1">
+    updateActiveSection();
+    window.addEventListener('hashchange', updateActiveSection);
+
+    return () => window.removeEventListener('hashchange', updateActiveSection);
+  }, []);
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--background)_92%,white)]/95 backdrop-blur-sm">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8" aria-label="Primary">
+        <Link href="/" className="text-sm font-semibold tracking-[0.2em] text-[var(--foreground)] uppercase">
+          Dhiraj Pandit
+        </Link>
+
+        <div className="hidden items-center gap-1 md:flex">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800/50 rounded-lg transition-all duration-300 font-medium relative group"
+                aria-current={activeSection === link.href.replace('#', '') ? 'page' : undefined}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors hover:text-[var(--accent)] ${
+                  activeSection === link.href.replace('#', '')
+                    ? 'bg-[var(--surface-strong)] text-[var(--foreground)]'
+                    : 'text-[var(--muted)]'
+                }`}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300 rounded-full"></span>
               </a>
             ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
-          >
-            <svg
-              className="w-6 h-6 text-gray-700 dark:text-gray-300 transition-transform duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden pb-4 space-y-1 animate-fadeInDown">
-            {navLinks.map((link, idx) => (
+        <a
+          href="https://github.com/DhirajBro1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden rounded-full border border-[var(--border)] px-4 py-2 text-sm font-medium text-[var(--foreground)] hover:border-[var(--accent)] hover:text-[var(--accent)] md:inline-flex"
+        >
+          GitHub
+        </a>
+
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen((open) => !open)}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          className="inline-flex items-center justify-center rounded-full border border-[var(--border)] p-2 text-[var(--foreground)] md:hidden"
+        >
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
+            {isMenuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 18h16" />
+              </>
+            )}
+          </svg>
+        </button>
+      </nav>
+
+      {isMenuOpen && (
+        <div id="mobile-menu" className="border-t border-[var(--border)] bg-[var(--background)] md:hidden">
+          <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  aria-current={activeSection === link.href.replace('#', '') ? 'page' : undefined}
+                  className={`rounded-lg px-3 py-3 text-sm font-medium transition-colors ${
+                    activeSection === link.href.replace('#', '')
+                      ? 'bg-[var(--surface-strong)] text-[var(--foreground)]'
+                      : 'text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--foreground)]'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
               <a
-                key={link.href}
-                href={link.href}
-                className="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-800/50 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all duration-300 font-medium animate-fadeInDown"
-                style={{ animationDelay: `${idx * 50}ms` }}
+                href="https://github.com/DhirajBro1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 rounded-lg border border-[var(--border)] px-3 py-3 text-sm font-medium text-[var(--foreground)]"
                 onClick={() => setIsMenuOpen(false)}
               >
-                {link.label}
+                GitHub
               </a>
-            ))}
+            </div>
           </div>
-        )}
-      </nav>
+        </div>
+      )}
     </header>
   );
 }

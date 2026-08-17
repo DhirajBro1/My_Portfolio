@@ -18,97 +18,51 @@ export default function Footer() {
       name: 'Email',
       url: 'mailto:panditdhiraj296@gmail.com',
       icon: 'M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'
-    }
-  ];
-
-  const footerLinks = [
-    {
-      title: 'Quick Links',
-      links: [
-        { href: '#home', label: 'Home' },
-        { href: '#about', label: 'About' },
-        { href: '#projects', label: 'Projects' },
-        { href: '#contact', label: 'Contact' },
-      ]
     },
     {
-      title: 'Services',
-      links: [
-        { href: '#', label: 'Web Development' },
-        { href: '#', label: 'App Development' },
-        { href: '#', label: 'Consulting' },
-        { href: '#', label: 'Maintenance' },
-      ]
+      name: 'Facebook',
+      url: 'https://www.facebook.com/panditdhiraj296',
+      icon: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V8.41c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.926-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073z'
     }
   ];
 
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-black text-gray-300">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Main Footer Content */}
-        <div className="grid md:grid-cols-4 gap-8 mb-12">
-          {/* Brand */}
-          <div className="animate-fadeInUp">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">DKP</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">Building beautiful, functional web experiences for ambitious creators.</p>
+    <footer className="border-t border-[var(--border)]">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">Dhiraj Pandit</p>
+            <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
+              Urlabari, Nepal. Building with Next.js, TypeScript, React, Tailwind, and MongoDB.
+            </p>
           </div>
 
-          {/* Footer Links */}
-          {footerLinks.map((section, idx) => (
-            <div key={section.title} className="animate-fadeInUp" style={{ animationDelay: `${(idx + 1) * 100}ms` }}>
-              <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">{section.title}</h4>
-              <ul className="space-y-2.5">
-                {section.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-sm font-medium relative group"
-                    >
-                      {link.label}
-                      <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300"></span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* Social Links */}
-          <div className="animate-fadeInUp" style={{ animationDelay: '300ms' }}>
-            <h4 className="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Follow</h4>
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.name}
-                  className="w-10 h-10 bg-gray-800/50 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 hover:-translate-y-1 transform group"
-                >
-                  <svg className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                    <path d={social.icon} />
-                  </svg>
-                </a>
-              ))}
-            </div>
+          <div className="flex flex-wrap gap-4 text-sm text-[var(--foreground)]">
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+                className="inline-flex items-center gap-2 hover:text-[var(--accent)]"
+              >
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d={social.icon} />
+                </svg>
+                <span>{social.name}</span>
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-gray-800/50 pt-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 animate-fadeInUp" style={{ animationDelay: '400ms' }}>
-            <p className="text-gray-500 text-sm">
-              &copy; {currentYear} Dhiraj Kumar Pandit. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <a href="#" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300 font-medium">
-                Privacy
-              </a>
-              <a href="#" className="text-gray-500 hover:text-blue-400 text-sm transition-colors duration-300 font-medium">
-                Terms
-              </a>
-            </div>
+        <div className="mt-8 flex flex-col gap-2 border-t border-[var(--border)] pt-5 text-xs text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {currentYear} Dhiraj Pandit. All rights reserved.</p>
+          <div className="flex gap-4">
+            <a className="hover:text-[var(--foreground)]" href="mailto:panditdhiraj296@gmail.com">
+              panditdhiraj296@gmail.com
+            </a>
+            <span>Urlabari, Nepal</span>
           </div>
         </div>
       </div>

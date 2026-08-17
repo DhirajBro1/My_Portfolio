@@ -111,7 +111,7 @@ npm run start
 
 ### Admin Panel
 - **Route:** `/admin/admin`
-- **Password:** Set in `ADMIN_PW` environment variable (default: `mangorange296`)
+- **Password:** Set in `ADMIN_PW` environment variable 
 - **Features:**
   - View all submissions and messages
   - Filter by message type or ratings

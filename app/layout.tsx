@@ -14,14 +14,50 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dhiraj | Full-Stack Developer",
-  description: "Professional portfolio showcasing projects, skills, and expertise in web development. Let's build something amazing together.",
-  keywords: "web development, full-stack developer, React, Next.js, Node.js, portfolio",
-  authors: [{ name: "Dhiraj" }],
+  metadataBase: new URL("https://dhirojpandit.com.np"),
+  title: {
+    default: "Dhiraj Pandit | Full-Stack Developer",
+    template: "%s | Dhiraj Pandit",
+  },
+  description:
+    "Dhiraj Pandit's portfolio - a full-stack developer from Urlabari, Nepal building web apps with Next.js, React, TypeScript, Node.js, and MongoDB.",
+  authors: [{ name: "Dhiraj Pandit" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Dhiraj | Full-Stack Developer",
-    description: "Check out my latest projects and professional work",
+    title: "Dhiraj Pandit | Full-Stack Developer",
+    description:
+      "Dhiraj Pandit's portfolio - a full-stack developer from Urlabari, Nepal building web apps with Next.js, React, TypeScript, Node.js, and MongoDB.",
     type: "website",
+    url: "/",
+    siteName: "Dhiraj Pandit",
+    images: [
+      {
+        url: "/Dhiraj.jpeg",
+        width: 1200,
+        height: 1200,
+        alt: "Portrait of Dhiraj Pandit",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dhiraj Pandit | Full-Stack Developer",
+    description:
+      "Dhiraj Pandit's portfolio - a full-stack developer from Urlabari, Nepal building web apps with Next.js, React, TypeScript, Node.js, and MongoDB.",
+    images: ["/Dhiraj.jpeg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   icons: {
     icon: "/favicon.png",
@@ -59,6 +95,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <a
+          href="#main-content"
+          className="absolute left-4 top-4 -translate-y-16 rounded-full border border-[var(--border)] bg-[var(--background)] px-4 py-2 text-sm text-[var(--foreground)] shadow-sm transition-transform focus:translate-y-0"
+        >
+          Skip to content
+        </a>
         {children}
       </body>
     </html>

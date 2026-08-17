@@ -1,39 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { trackContactForm, trackRatingSubmit } from '@/lib/analytics';
-
-interface Comment {
-  _id: string;
-  name: string;
-  comment: string;
-  rating: number | null;
-  createdAt: string;
-}
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', rating: 0 });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [commentsLoading, setCommentsLoading] = useState(true);
-
-  useEffect(() => {
-    fetchComments();
-  }, []);
-
-  const fetchComments = async () => {
-    try {
-      const res = await fetch('/api/comments');
-      if (!res.ok) throw new Error('Failed to fetch comments');
-      const data = await res.json();
-      setComments(data.slice(0, 3));
-    } catch (err) {
-      console.error('Failed to load comments:', err);
-    } finally {
-      setCommentsLoading(false);
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -58,16 +31,14 @@ export default function ContactSection() {
 
       if (!res.ok) throw new Error('Failed to send message');
 
-      // Track analytics events
       trackContactForm(formData.name, formData.email);
       if (formData.rating > 0) {
         trackRatingSubmit(formData.rating, formData.name);
       }
 
-      setStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' });
+      setStatus({ type: 'success', message: "Message sent successfully. I'll get back to you soon." });
       setFormData({ name: '', email: '', subject: '', message: '', rating: 0 });
-      await fetchComments();
-    } catch (error) {
+    } catch {
       setStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
     } finally {
       setLoading(false);
@@ -75,147 +46,143 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fadeInUp">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Get In Touch</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mt-6">
-            Have a project in mind or want to discuss opportunities? Let's connect!
+    <section id="contact" className="py-20 sm:py-24">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+        <div className="max-w-xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--muted)]">Contact</p>
+          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl">
+            If you want to reach out, do it directly.
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-[var(--muted)]">
+            I’m open to project ideas, collaboration, feedback, or just a quick note about the work here. Keep it simple and I’ll take it from there.
           </p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {/* Email */}
-          <div className="bg-white dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 border border-gray-200 dark:border-gray-700/50 hover:border-blue-500/50 hover:-translate-y-1 transform animate-fadeInUp">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl mb-4">
-              <svg className="w-7 h-7 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
+          <div className="mt-10 space-y-4 border-t border-[var(--border)] pt-8 text-sm text-[var(--foreground)]">
+            <div className="flex flex-col gap-1 border-b border-[var(--border)] pb-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <span className="text-[var(--muted)]">Email</span>
+              <a className="break-all text-left hover:text-[var(--accent)] sm:text-right" href="mailto:panditdhiraj296@gmail.com">
+                panditdhiraj296@gmail.com
+              </a>
             </div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2 text-lg">Email</h3>
-            <a href="mailto:panditdhiraj296@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-              panditdhiraj296@gmail.com
-            </a>
-          </div>
-
-          {/* Phone */}
-          <div className="bg-white dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 border border-gray-200 dark:border-gray-700/50 hover:border-blue-500/50 hover:-translate-y-1 transform animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl mb-4">
-              <svg className="w-7 h-7 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
+            <div className="flex flex-col gap-1 border-b border-[var(--border)] pb-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <span className="text-[var(--muted)]">Phone</span>
+              <a className="hover:text-[var(--accent)] sm:text-right" href="tel:+9779705330207">
+                +977 9705330207
+              </a>
             </div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2 text-lg">Phone</h3>
-            <a href="tel:+977 9705330207" className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
-              +977 9705330207
-            </a>
-          </div>
-
-          {/* Location */}
-          <div className="bg-white dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 border border-gray-200 dark:border-gray-700/50 hover:border-blue-500/50 hover:-translate-y-1 transform animate-fadeInUp" style={{ animationDelay: '200ms' }}>
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl mb-4">
-              <svg className="w-7 h-7 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <span className="text-[var(--muted)]">Location</span>
+              <span className="sm:text-right">Urlabari, Nepal</span>
             </div>
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2 text-lg">Location</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">Urlabari, Nepal</p>
           </div>
         </div>
 
-        {/* Contact Form */}
-        <div className="bg-white dark:bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 sm:p-12 border border-gray-200 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 animate-fadeInUp" style={{ animationDelay: '300ms' }}>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Send me a Message</h3>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="animate-fadeInUp" style={{ animationDelay: '350ms' }}>
-                <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">Name</label>
+        <div className="border border-[var(--border)] bg-[var(--surface)] p-5 sm:p-8 lg:p-10">
+          <h3 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">Send a message</h3>
+          <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+            The form below still goes through the existing MongoDB-backed route.
+          </p>
+
+          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-[var(--foreground)]" htmlFor="name">
+                  Name
+                </label>
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300 hover:border-blue-400"
+                  className="mt-2 w-full border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]"
                   placeholder="Your name"
                 />
               </div>
-              <div className="animate-fadeInUp" style={{ animationDelay: '400ms' }}>
-                <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">Email</label>
+              <div>
+                <label className="block text-sm font-medium text-[var(--foreground)]" htmlFor="email">
+                  Email
+                </label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300 hover:border-blue-400"
-                  placeholder="your.email@example.com"
+                  className="mt-2 w-full border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]"
+                  placeholder="you@example.com"
                 />
               </div>
             </div>
 
-            <div className="animate-fadeInUp" style={{ animationDelay: '450ms' }}>
-              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">Subject</label>
+            <div>
+              <label className="block text-sm font-medium text-[var(--foreground)]" htmlFor="subject">
+                Subject
+              </label>
               <input
+                id="subject"
                 type="text"
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300 hover:border-blue-400"
+                className="mt-2 w-full border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)]"
                 placeholder="What is this about?"
               />
             </div>
 
-            <div className="animate-fadeInUp" style={{ animationDelay: '475ms' }}>
-              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">Rate My Portfolio (Optional)</label>
-              <div className="flex items-center gap-3">
-                <div className="flex gap-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      onClick={() => setFormData(prev => ({ ...prev, rating: star }))}
-                      className={`text-3xl transition-all duration-200 transform hover:scale-125 ${
-                        star <= formData.rating
-                          ? 'text-yellow-400 drop-shadow-lg'
-                          : 'text-gray-300 dark:text-gray-600 hover:text-yellow-300'
-                      }`}
-                      title={`Rate ${star} star${star !== 1 ? 's' : ''}`}
-                    >
-                      ★
-                    </button>
-                  ))}
-                </div>
-                {formData.rating > 0 && (
-                  <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
-                    {formData.rating} star{formData.rating !== 1 ? 's' : ''}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className="animate-fadeInUp" style={{ animationDelay: '500ms' }}>
-              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">Message</label>
+            <div>
+              <label className="block text-sm font-medium text-[var(--foreground)]" htmlFor="message">
+                Message
+              </label>
               <textarea
+                id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all duration-300 hover:border-blue-400 resize-none"
-                placeholder="Your message..."
-              ></textarea>
+                className="mt-2 w-full border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-[var(--foreground)] placeholder:text-[var(--muted)] resize-none"
+                placeholder="Tell me a little about what you need."
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-[var(--foreground)]">Optional rating</label>
+              <div className="mt-3 flex flex-wrap items-center gap-2" role="radiogroup" aria-label="Optional rating">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    onClick={() => setFormData((prev) => ({ ...prev, rating: star }))}
+                    className={`border px-3 py-2 text-sm ${
+                      star <= formData.rating
+                        ? 'border-[var(--foreground)] text-[var(--foreground)]'
+                        : 'border-[var(--border)] text-[var(--muted)]'
+                    }`}
+                    aria-label={`Rate ${star} star${star !== 1 ? 's' : ''}`}
+                    aria-pressed={formData.rating === star}
+                  >
+                    {star}★
+                  </button>
+                ))}
+                {formData.rating > 0 && (
+                  <span className="text-sm text-[var(--muted)]">{formData.rating}/5 selected</span>
+                )}
+              </div>
             </div>
 
             {status && (
-              <div className={`p-4 rounded-lg text-sm font-semibold animate-fadeInUp ${
-                status.type === 'success'
-                  ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-200 border border-green-200 dark:border-green-800/50'
-                  : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-200 border border-red-200 dark:border-red-800/50'
-              }`}>
+              <div
+                className={`border px-4 py-3 text-sm ${
+                  status.type === 'success'
+                    ? 'border-[var(--foreground)] text-[var(--foreground)]'
+                    : 'border-[var(--border)] text-[var(--muted)]'
+                }`}
+                aria-live="polite"
+              >
                 {status.message}
               </div>
             )}
@@ -223,9 +190,9 @@ export default function ContactSection() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/50 disabled:bg-gray-400 disabled:shadow-none transition-all duration-300 font-semibold text-lg hover:-translate-y-1 transform active:translate-y-0"
+              className="inline-flex items-center justify-center border border-[var(--foreground)] bg-[var(--foreground)] px-6 py-3 text-sm font-medium text-[var(--background)] disabled:opacity-60"
             >
-              {loading ? 'Sending...' : 'Send Message'}
+              {loading ? 'Sending...' : 'Send message'}
             </button>
           </form>
         </div>

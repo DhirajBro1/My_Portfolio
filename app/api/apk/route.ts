@@ -72,7 +72,7 @@ if (!uri) {
   throw new Error('MONGODB_URI is not set');
 }
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   const client = new MongoClient(uri!);
 
   try {

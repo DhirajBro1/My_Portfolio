@@ -1,0 +1,2 @@
+export const secondaryButtonClassName =
+  'inline-flex items-center justify-center gap-2 rounded-full border border-[var(--border)] bg-transparent px-4 py-2.5 text-sm font-medium text-[var(--muted)] transition-colors duration-150 ease-out hover:border-[var(--foreground)] hover:bg-[var(--surface)] hover:text-[var(--foreground)] sm:px-5';

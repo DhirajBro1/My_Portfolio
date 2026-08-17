@@ -6,89 +6,73 @@ import { trackSkillInteraction } from '@/lib/analytics';
 const skillsData = [
   {
     category: 'Frontend',
-    skills: [
-      { name: 'React', level: 92, icon: 'react' },
-      { name: 'Next.js', level: 90, icon: 'nextdotjs' },
-      { name: 'TypeScript', level: 85, icon: 'typescript' },
-      { name: 'Tailwind CSS', level: 94, icon: 'tailwindcss' },
-    ],
+    description: 'Interfaces, layout, and the parts of the app people actually see.',
+    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
   },
   {
     category: 'Backend',
-    skills: [
-      { name: 'Node.js', level: 88, icon: 'nodedotjs' },
-      { name: 'Express.js', level: 85, icon: 'express' },
-      { name: 'MongoDB', level: 88, icon: 'mongodb' },
-      { name: 'PostgreSQL', level: 80, icon: 'postgresql' },
-    ],
+    description: 'APIs, MongoDB, and the server-side pieces that keep things working.',
+    skills: ['Node.js', 'MongoDB', 'APIs', 'GridFS'],
   },
   {
-    category: 'Tools & Others',
-    skills: [
-      { name: 'Git & GitHub', level: 90, icon: 'github' },
-      { name: 'Docker', level: 75, icon: 'docker' },
-      { name: 'Firebase', level: 70, icon: 'firebase' },
-      { name: 'REST APIs', level: 92, icon: 'fastapi' },
-    ],
+    category: 'Tools',
+    description: 'The workflow pieces around shipping, versioning, and deployment.',
+    skills: ['Git', 'GitHub', 'Vercel', 'npm'],
   },
 ];
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fadeInUp">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Skills & Expertise</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+    <section id="skills" className="py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--muted)]">Skills</p>
+          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl">
+            Small groups, not a wall of badges.
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-[var(--muted)]">
+            The work on the site already shows most of this. This section just groups the tools into the way I actually think about them.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {skillsData.map((skillGroup, groupIdx) => (
-            <div
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {skillsData.map((skillGroup) => (
+            <section
               key={skillGroup.category}
-              className="bg-white dark:bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 border border-gray-200 dark:border-gray-700/50 hover:border-blue-500/50 hover:-translate-y-1 transform animate-fadeInUp"
-              style={{ animationDelay: `${groupIdx * 100}ms` }}
+              className="border border-[var(--border)] bg-[var(--surface)] p-6"
             >
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 pb-4 border-b-2 border-gradient-to-r from-blue-600 to-purple-600">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">
                 {skillGroup.category}
-              </h3>
+              </p>
+              <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
+                {skillGroup.description}
+              </p>
 
-              <div className="space-y-6">
-                {skillGroup.skills.map((skill, skillIdx) => (
-                  <div
-                    key={skill.name}
-                    className="animate-fadeInUp p-3 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800/50 hover:border-blue-400 dark:hover:border-blue-600 transition-colors duration-300 cursor-pointer"
-                    style={{ animationDelay: `${groupIdx * 100 + skillIdx * 50}ms` }}
-                    onClick={() => trackSkillInteraction(skill.name)}
-                  >
-                    <div className="flex justify-between items-center gap-3">
-                      <div className="flex items-center gap-2 flex-1">
-                        <img
-                          src={`https://cdn.simpleicons.org/${skill.icon}`}
-                          alt={skill.name}
-                          className="w-5 h-5"
-                          title={skill.name}
-                        />
-                        <span className="font-semibold text-gray-800 dark:text-gray-200">{skill.name}</span>
-                      </div>
-                    </div>
-                  </div>
+              <ul className="mt-6 space-y-3">
+                {skillGroup.skills.map((skill) => (
+                  <li key={skill}>
+                    <button
+                      type="button"
+                      onClick={() => trackSkillInteraction(skill)}
+                      className="group flex w-full items-center justify-between border-b border-[var(--border)] py-3 text-left text-sm font-medium text-[var(--foreground)]"
+                    >
+                      <span>{skill}</span>
+                      <span className="text-[var(--muted)] transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">
+                        ↗
+                      </span>
+                    </button>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
           ))}
         </div>
 
-        {/* Additional Skills */}
-        <div className="mt-16 pt-16 border-t border-gray-200 dark:border-gray-700">
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center animate-fadeInUp">Other Competencies</h3>
-          <div className="flex flex-wrap gap-3 justify-center">
-            {['Agile', 'Scrum', 'UI/UX Design', 'Web Performance', 'SEO', 'Testing', 'CI/CD', 'Responsive Design'].map((skill, idx) => (
-              <span
-                key={skill}
-                className="px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 rounded-full font-semibold text-sm border border-blue-200 dark:border-blue-800/50 backdrop-blur-sm hover:scale-110 transition-transform duration-300 animate-fadeInUp"
-                style={{ animationDelay: `${idx * 50}ms` }}
-              >
+        <div className="mt-12 border-t border-[var(--border)] pt-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">Also familiar with</p>
+          <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--foreground)]">
+            {['Responsive design', 'REST APIs', 'Git workflows', 'SEO basics', 'Testing', 'Deployment'].map((skill) => (
+              <span key={skill} className="rounded-full border border-[var(--border)] px-3 py-1">
                 {skill}
               </span>
             ))}
