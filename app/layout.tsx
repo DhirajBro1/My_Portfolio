@@ -93,6 +93,14 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* 🌟 Ahrefs Analytics */}
+        <Script
+          id="ahrefs-analytics"
+          strategy="afterInteractive"
+          src="https://ahrefs.com"
+          data-key={process.env.NEXT_PUBLIC_AHREFS_DATA_KEY || process.env.AHREFS_DATA_KEY}
+          defer
+        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <a
