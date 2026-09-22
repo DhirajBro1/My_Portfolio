@@ -63,11 +63,6 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
     apple: "/favicon.png",
   },
-  verification: {
-    other: {
-      "trustburn-site-verification": ["8f3624842143cdca9bac04f34297cf3c"],
-    },
-  },
 };
 
 export default function RootLayout({
